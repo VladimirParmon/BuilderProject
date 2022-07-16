@@ -1,0 +1,154 @@
+@use "@angular/material" as mat;
+@use "./constants/palette" as palette;
+@include mat.core();
+
+@import "~quill/dist/quill.snow.css";
+
+$Builder-primary: mat.define-palette(palette.$mslu);
+$Builder-accent: mat.define-palette(palette.$mslu-light);
+$Builder-warn: mat.define-palette(mat.$red-palette, 800);
+$Builder-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $Builder-primary,
+      accent: $Builder-accent,
+      warn: $Builder-warn,
+    ),
+  )
+);
+
+@include mat.all-component-themes($Builder-theme);
+
+$main-blue: #14609a;
+$light-blue: #dde6ef;
+$bg-light: #ffffff;
+
+$header-height: 60px;
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  // transition: 0.4s;
+}
+
+.add-page-dialog {
+  .mat-dialog-content {
+    padding: 0;
+    margin: 0;
+  }
+
+  .mat-dialog-container {
+    padding: 1rem 2rem 2rem 2rem;
+    margin: 1rem;
+    overflow: hidden;
+  }
+}
+
+.delete-page-dialog {
+  .mat-dialog-content {
+    padding: 1rem;
+    overflow: hidden;
+  }
+}
+
+app-view,
+app-text,
+app-image,
+app-pdf,
+app-video,
+app-audio,
+app-slider {
+  width: 100%;
+}
+
+app-image,
+app-audio,
+app-pdf,
+app-video {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.hide-toolbar {
+  .ql-container {
+    border: none;
+  }
+
+  .ql-toolbar {
+    display: none;
+  }
+}
+
+.custom-images {
+  .mat-radio-container {
+    display: none;
+  }
+
+  .mat-radio-checked {
+    border-left: 5px solid $main-blue;
+  }
+
+  .mat-radio-label-content {
+    display: flex;
+  }
+
+  .mat-radio-label {
+    white-space: normal;
+  }
+}
+
+.choose-file-dialog {
+  .mat-dialog-content {
+    overflow: hidden;
+  }
+}
+
+/* Set dropdown font-families */
+
+[quill-editor-toolbar] .ql-font span[data-label="Aref Ruqaa"]::before {
+  font-family: "Aref Ruqaa";
+}
+
+[quill-editor-toolbar] .ql-font span[data-label="Mirza"]::before {
+  font-family: "Mirza";
+}
+
+[quill-editor-toolbar] .ql-font span[data-label="Roboto"]::before {
+  font-family: "Roboto";
+}
+
+/* Set content font-families */
+
+.ql-font-mirza {
+  font-family: "Mirza";
+}
+
+.ql-font-aref {
+  font-family: "Aref Ruqaa";
+}
+
+.ql-font-roboto {
+  font-family: "Roboto";
+}
+
+@media screen and (max-width: 640px) {
+  app-contents {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    background-color: rgba(
+      $color: mat.get-color-from-palette($Builder-accent, 50),
+      $alpha: 0.97
+    );
+  }
+}

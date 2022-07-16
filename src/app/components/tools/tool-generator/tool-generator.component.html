@@ -1,0 +1,47 @@
+<div [ngSwitch]="tool.type" class="block" appFullscreen>
+  <mat-icon
+    *ngIf="isGlobalEditOn$ | async"
+    color="accent"
+    class="tool-icon"
+    (click)="openDeleteDialog()"
+    >delete</mat-icon
+  >
+  <app-text
+    [globalEdit]="isGlobalEditOn$ | async"
+    *ngSwitchCase="names.TEXT"
+    [initialValue]="tool.src"
+    (quillTextChange)="handleTextChange($event)"
+  ></app-text>
+  <app-image
+    [globalEdit]="isGlobalEditOn$ | async"
+    *ngSwitchCase="names.PICTURE"
+    [styling]="tool.styling"
+    [imageData]="tool.src"
+    [indexOfData]="tool.index"
+    [nodeId]="nodeId"
+  ></app-image>
+  <app-pdf
+    *ngSwitchCase="names.PDF"
+    [data]="tool.src"
+    [indexOfData]="tool.index"
+    [nodeId]="nodeId"
+  ></app-pdf>
+  <app-video
+    *ngSwitchCase="names.VIDEO"
+    [data]="tool.src"
+    [indexOfData]="tool.index"
+    [nodeId]="nodeId"
+  ></app-video>
+  <app-audio
+    *ngSwitchCase="names.AUDIO"
+    [data]="tool.src"
+    [indexOfData]="tool.index"
+    [nodeId]="nodeId"
+  ></app-audio>
+  <app-slider
+    *ngSwitchCase="names.SLIDER"
+    [imageData]="tool.src"
+    [indexOfData]="tool.index"
+    [nodeId]="nodeId"
+  ></app-slider>
+</div>

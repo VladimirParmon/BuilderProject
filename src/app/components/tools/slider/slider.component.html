@@ -1,0 +1,26 @@
+<div class="slider-outer" (click)="goFullscreen($event)">
+  <div class="slider-inner">
+    <div class="slider">
+      <ng-container *ngFor="let image of images">
+        <img
+          class="slider-image"
+          [src]="getImageSrc(image.src)"
+          *ngIf="image.index === currentPicIndex"
+        />
+      </ng-container>
+    </div>
+    <div class="slider-controls">
+      <mat-icon
+        class="slider-controls-button"
+        (click)="moveSlides('left', $event)"
+        >arrow_circle_left</mat-icon
+      >
+      <span>{{ currentPicIndex + 1 }}/{{ images.length }}</span>
+      <mat-icon
+        class="slider-controls-button"
+        (click)="moveSlides('right', $event)"
+        >arrow_circle_right</mat-icon
+      >
+    </div>
+  </div>
+</div>
