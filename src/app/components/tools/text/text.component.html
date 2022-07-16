@@ -1,25 +1,5 @@
-<form [formGroup]="quillForm" class="quill-editor">
-  <ng-container *ngIf="globalEdit">
-    <mat-icon
-      class="quill-editor-icon"
-      *ngIf="isToolbarHidden"
-      (click)="isToolbarHidden = false"
-      >edit</mat-icon
-    >
-    <mat-icon
-      class="quill-editor-icon"
-      *ngIf="!isToolbarHidden"
-      (click)="save()"
-      >save</mat-icon
-    >
-  </ng-container>
-  <quill-editor
-    [readOnly]="(globalEdit ? false : true) || isToolbarHidden"
-    formControlName="html"
-    [ngClass]="{
-      'hide-toolbar': isToolbarHidden
-    }"
-    [modules]="modules"
-    placeholder="Пожалуйста, введите текст..."
-  ></quill-editor>
-</form>
+<div class="ql-snow">
+  <div class="ql-editor">
+    <div [innerHTML]="initialValue" class="text-container ql-container"></div>
+  </div>
+</div>

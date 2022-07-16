@@ -1,9 +1,5 @@
 <div [ngSwitch]="tool.type" class="block" appFullscreen>
-  <app-text
-    *ngSwitchCase="names.TEXT"
-    [initialValue]="tool.src"
-    (quillTextChange)="handleTextChange($event)"
-  ></app-text>
+  <app-text *ngSwitchCase="names.TEXT" [initialValue]="tool.src"></app-text>
   <app-image
     *ngSwitchCase="names.PICTURE"
     [styling]="tool.styling"
