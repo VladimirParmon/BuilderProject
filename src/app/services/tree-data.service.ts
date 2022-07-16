@@ -19,37 +19,6 @@ export class TreeDataService {
     });
   }
 
-  addNewPage(pageName: string) {
-    const newPage: ContentsNode = {
-      name: pageName,
-      id: Date.now().toString(),
-      children: [],
-      data: [],
-    };
-    if (this.contentsData) {
-      this.contentsData.push(newPage);
-      this.stateService.treeData$.next(this.contentsData);
-    }
-  }
-
-  deletePage(nodeId: string) {
-    if (this.contentsData) {
-      for (let node of this.contentsData) {
-        const { nodeToFind, parent } = this.findNode(nodeId, node) || {};
-        if (nodeToFind) {
-          if (parent) {
-            const index = parent.children.indexOf(nodeToFind);
-            parent.children.splice(index, 1);
-          } else {
-            const index = this.contentsData.indexOf(nodeToFind);
-            this.contentsData.splice(index, 1);
-          }
-        }
-      }
-      this.stateService.treeData$.next(this.contentsData);
-    }
-  }
-
   findNode(
     id: string,
     currentNode: ContentsNode,
