@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { ContentsNode, newToolInfo } from 'src/constants/models';
-import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { ContentsNode } from 'src/constants/models';
+import treeData from '../../assets/treeData.json';
 
 @Injectable({
   providedIn: 'root',
@@ -11,15 +11,7 @@ export class StateService {
   treeData: ContentsNode[] | null = null;
   treeData$ = new BehaviorSubject(this.treeData);
 
-  private _jsonURL = 'assets/treeData.json';
-
-  constructor(private http: HttpClient) {
-    this.getJSON().subscribe((data: ContentsNode[]) => {
-      this.treeData$.next(data);
-    });
-  }
-
-  public getJSON(): Observable<any> {
-    return this.http.get(this._jsonURL);
+  constructor() {
+    this.treeData$.next(treeData);
   }
 }
