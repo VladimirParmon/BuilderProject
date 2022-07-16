@@ -62,7 +62,7 @@ async function writeData(req, res) {
   if (raw) {
     const data = JSON.parse(raw).body;
     const writeStream = fs.createWriteStream(path);
-    writeStream.write(JSON.stringify(data, null, 2));
+    writeStream.write(JSON.stringify(data)); //, null, 2
   }
   res.end(JSON.stringify("Wrote to treeData.json"));
 }
@@ -133,6 +133,25 @@ async function generateSite(req, res) {
       } else {
         fs.copyFileSync(src, dest);
       }
+    }
+    insertData();
+    function insertData() {
+      const pathToData = __dirname + "\\treeData.json";
+      const treeData = JSON.stringify(
+        fs
+          .readFileSync(pathToData)
+          .toString()
+          .replace(/(\r\n|\n|\r)/g, "")
+      );
+      const siteFiles = fs.readdirSync(commonDest);
+      const mainFileName = siteFiles.filter((filename) =>
+        filename.includes("main")
+      )[0];
+      const pathToMainFile = path.join(commonDest, mainFileName);
+      const mainFile = fs.readFileSync(pathToMainFile).toString();
+      const magicString = '[{"CUSTOM_STRING":"TO_REPLACE"}]';
+      const newMainFileContent = mainFile.replace(magicString, treeData);
+      fs.writeFileSync(pathToMainFile, newMainFileContent);
     }
   }
   res.end(JSON.stringify("Generated!"));
