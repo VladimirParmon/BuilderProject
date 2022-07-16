@@ -8,7 +8,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class StateService {
   isContentsMenuOpen = new BehaviorSubject(false);
-  isGlobalEditOn = new BehaviorSubject(true);
   treeData: ContentsNode[] | null = null;
   treeData$ = new BehaviorSubject(this.treeData);
   newToolHasBeenAdded: Subject<newToolInfo> = new Subject();

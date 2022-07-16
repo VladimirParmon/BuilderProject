@@ -1,17 +1,5 @@
 <ng-template #tmplNode let-node="node">
-  <div
-    class="node-item"
-    [attr.data-id]="node.id"
-    [attr.id]="'node-' + node.id"
-    [ngClass]="{
-      'child-node': node.children?.length && !isDraggable,
-      'node-item__zone-padding': isDraggable
-    }"
-  >
-    <div class="node-item__drop-zone" *ngIf="isDraggable">
-      <mat-icon>drag_indicator</mat-icon>
-    </div>
-
+  <div class="node-item" [attr.data-id]="node.id" [attr.id]="'node-' + node.id">
     <div class="node-title">
       <mat-icon
         *ngIf="node.children?.length"
@@ -29,36 +17,15 @@
         >({{ node.children?.length }})</span
       >
       <span class="node-title__spacer"></span>
-      <mat-icon
-        *ngIf="isGlobalEditOn$ | async"
-        color="accent"
-        aria-hidden="false"
-        aria-label="delete icon"
-        class="node-title__icon node-title__icon-delete"
-        (click)="openDeletePageDialog(node.id)"
-        >delete</mat-icon
-      >
     </div>
 
     <div
       *ngIf="node.isExpanded && node.children?.length"
       class="node-children"
-      cdkDropList
-      [cdkDropListData]="node.children"
       [id]="node.id"
-      [cdkDropListConnectedTo]="treeService.dropTargetIds"
-      (cdkDropListDropped)="treeService.drop($event)"
-      [cdkDropListSortingDisabled]="true"
       @fold
     >
-      <div
-        *ngFor="let child of node.children"
-        cdkDrag
-        [cdkDragData]="child.id"
-        [cdkDragDisabled]="!isDraggable"
-        (cdkDragMoved)="treeService.dragMoved($event)"
-        @fold
-      >
+      <div *ngFor="let child of node.children" @fold>
         <ng-container
           *ngTemplateOutlet="tmplNode; context: { node: child }"
         ></ng-container>
@@ -67,22 +34,13 @@
   </div>
 </ng-template>
 
-<div
-  cdkDropList
-  [cdkDropListData]="treeService.contentsData"
-  id="main"
-  [cdkDropListConnectedTo]="treeService.dropTargetIds"
-  (cdkDropListDropped)="treeService.drop($event)"
-  [cdkDropListSortingDisabled]="true"
-  *ngIf="isMenuOpen$ | async"
-  @animate
->
+<div id="main" *ngIf="isMenuOpen$ | async" @animate>
   <div class="tree-controls">
     <div class="tree-buttons">
       <button
         class="tree-button"
         mat-raised-button
-        (click)="isTreeExpanded(treeService.contentsData)"
+        (click)="isTreeExpanded(treeDataService.contentsData)"
       >
         {{
           expandButtonState.expanded
@@ -90,55 +48,13 @@
             : expandButtonState.text.close
         }}
       </button>
-      <button
-        class="tree-button"
-        mat-raised-button
-        (click)="openAddNewPageDialog()"
-        onclick="this.blur()"
-      >
-        Добавить
-      </button>
-    </div>
-    <div class="tree-checkboxes">
-      <mat-checkbox
-        class="tree-checkbox"
-        (change)="toggleDND($event.checked)"
-        [(ngModel)]="isDraggable"
-        [disabled]="!(isGlobalEditOn$ | async)"
-        >Дропзоны</mat-checkbox
-      >
-      <mat-checkbox
-        class="tree-checkbox"
-        [checked]="isGlobalEditOn$ | async"
-        (change)="toggleGlobalEdit($event.checked)"
-        >Редактирование</mat-checkbox
-      >
     </div>
   </div>
 
-  <div
-    *ngFor="let node of treeService.contentsData"
-    cdkDrag
-    [cdkDragData]="node.id"
-    [cdkDragDisabled]="!isDraggable"
-    (cdkDragMoved)="treeService.dragMoved($event)"
-  >
+  <div *ngFor="let node of treeDataService.contentsData">
     <ng-container
       *ngTemplateOutlet="tmplNode; context: { node: node }"
     ></ng-container>
-  </div>
-
-  <div class="tree-buttons__bottom">
-    <button
-      class="tree-button"
-      mat-raised-button
-      (click)="saveTree(treeService.contentsData)"
-    >
-      Сохранить
-    </button>
-    <button class="tree-button" mat-raised-button (click)="generate()">
-      Генерировать
-    </button>
   </div>
 </div>
 

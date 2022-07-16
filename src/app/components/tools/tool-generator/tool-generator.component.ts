@@ -2,10 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToolNames } from 'src/constants/enums';
 import { MediaData } from 'src/constants/models';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { BehaviorSubject } from 'rxjs';
-import { StateService } from 'src/app/services/state.service';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ConfirmActionComponent } from '../../core/confirm-action/confirm-action.component';
 
 @Component({
   selector: 'app-tool-generator',
@@ -32,9 +28,7 @@ export class ToolGeneratorComponent implements OnInit {
   @Output() deleteTool = new EventEmitter<MediaData>();
   names = ToolNames;
 
-  isGlobalEditOn$: BehaviorSubject<boolean> = this.stateService.isGlobalEditOn;
-
-  constructor(private stateService: StateService, public dialog: MatDialog) {
+  constructor() {
     this.tool = {
       index: 0,
       src: '',
@@ -46,22 +40,5 @@ export class ToolGeneratorComponent implements OnInit {
 
   handleTextChange(text: string) {
     if (this.tool) this.tool.src = text;
-  }
-
-  delete() {
-    this.deleteTool.emit(this.tool);
-  }
-
-  openDeleteDialog() {
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.autoFocus = false;
-    dialogConfig.position = { top: '5%' };
-    dialogConfig.panelClass = ['delete-page-dialog'];
-
-    let dialogRef = this.dialog.open(ConfirmActionComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe((yes) => {
-      if (yes) this.delete();
-    });
   }
 }

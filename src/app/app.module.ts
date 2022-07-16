@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './components/core/header/header.component';
 import { ContentsComponent } from './components/core/contents/contents.component';
 import { ViewComponent } from './components/core/view/view.component';
-import { ToolsComponent } from './components/admin/tools/tools.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { Page404Component } from './pages/page404/page404.component';
 import { AboutPageComponent } from './pages/about-page/about-page.component';
@@ -20,10 +19,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
-import { NewPageComponent } from './components/createNew/new-page/new-page.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ConfirmActionComponent } from './components/core/confirm-action/confirm-action.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { QuillModule } from 'ngx-quill';
@@ -35,8 +32,6 @@ import {
 import { TextComponent } from './components/tools/text/text.component';
 import { ToolGeneratorComponent } from './components/tools/tool-generator/tool-generator.component';
 import { ImageComponent } from './components/tools/image/image.component';
-import { ChooseFileComponent } from './components/createNew/choose-file/choose-file.component';
-import { FileUploadDNDDirective } from './directives/file-upload-dnd.directive';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSliderModule } from '@angular/material/slider';
@@ -52,17 +47,12 @@ import { FullscreenDirective } from './directives/fullscreen.directive';
     HeaderComponent,
     ContentsComponent,
     ViewComponent,
-    ToolsComponent,
     MainPageComponent,
     Page404Component,
     AboutPageComponent,
-    NewPageComponent,
-    ConfirmActionComponent,
     TextComponent,
     ToolGeneratorComponent,
     ImageComponent,
-    ChooseFileComponent,
-    FileUploadDNDDirective,
     PdfComponent,
     VideoComponent,
     AudioComponent,

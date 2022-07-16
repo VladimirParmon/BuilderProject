@@ -1,3 +1,0 @@
-<div class="tools" [ngClass]="{ 'inactive': !isToolbarActivated }" *ngIf="isGlobalEditOn | async">
-  <mat-icon *ngFor="let item of toolsList" class="tools-icon" (click)="useTool(item.name)">{{item.icon}}</mat-icon>
-</div>

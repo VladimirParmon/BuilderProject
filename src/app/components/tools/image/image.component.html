@@ -1,118 +1,13 @@
-<ng-container *ngIf="globalEdit">
-  <div class="image-controls" *ngIf="isControlsVisible">
-    <div class="image-controls__selects">
-      <mat-form-field appearance="fill" *ngIf="currentFlow !== flow.COLUMN">
-        <mat-label>Ось Х</mat-label>
-        <mat-select [(value)]="currentPositionX">
-          <mat-option value="{{ positions.START }}">Слева</mat-option>
-          <mat-option value="{{ positions.CENTER }}">По центру</mat-option>
-          <mat-option value="{{ positions.END }}">Справа</mat-option>
-          <mat-option value="{{ positions.BETWEEN }}">Растянуть</mat-option>
-          <mat-option value="{{ positions.EVENLY }}">Равномерно</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill" *ngIf="currentFlow !== flow.COLUMN">
-        <mat-label>Ось Y</mat-label>
-        <mat-select [(value)]="currentPositionY">
-          <mat-option value="{{ positions.START }}">Сверху</mat-option>
-          <mat-option value="{{ positions.CENTER }}">По центру</mat-option>
-          <mat-option value="{{ positions.END }}">Снизу</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill" *ngIf="currentFlow === flow.COLUMN">
-        <mat-label>Ось Х</mat-label>
-        <mat-select [(value)]="currentPositionY">
-          <mat-option value="{{ positions.START }}">Cлева</mat-option>
-          <mat-option value="{{ positions.CENTER }}">По центру</mat-option>
-          <mat-option value="{{ positions.END }}">Справа</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Ориентация</mat-label>
-        <mat-select [(value)]="currentFlow">
-          <mat-option value="{{ flow.ROW }}">Горизонтально</mat-option>
-          <mat-option value="{{ flow.COLUMN }}">Вертикально</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="image-controls__icons">
-      <mat-icon class="image-controls__icon" (click)="saveChanges()"
-        >save</mat-icon
-      >
-      <mat-icon class="image-controls__icon" (click)="addImage()"
-        >add_box</mat-icon
-      >
-    </div>
-  </div>
-
-  <mat-icon
-    class="image-controls__icon image-controls__icon-edit"
-    (click)="isControlsVisible = true"
-    *ngIf="!isControlsVisible"
-    >edit</mat-icon
-  >
-
-  <div class="pic-controls" *ngIf="currentPicIndex !== -1 && isControlsVisible">
-    <form class="pic-size-form">
-      <mat-form-field class="pic-size-form__form-field" appearance="fill">
-        <mat-label>Ширина в пикселях:</mat-label>
-        <input
-          matInput
-          type="number"
-          [(ngModel)]="currentPicWidth"
-          name="picSize"
-          [value]="currentPicWidth"
-          (change)="resizePic()"
-        />
-        <button
-          *ngIf="currentPicWidth"
-          matSuffix
-          mat-icon-button
-          aria-label="Clear"
-        >
-          <mat-icon class="image-controls__icon" (click)="deletePic()"
-            >delete</mat-icon
-          >
-        </button>
-      </mat-form-field>
-    </form>
-    <div class="pic-move">
-      <mat-icon
-        class="image-controls__icon"
-        (click)="moveImage('left')"
-        [ngClass]="{ inactive: currentPicIndex === 0 }"
-        >arrow_left</mat-icon
-      >
-      <mat-icon
-        class="image-controls__icon"
-        (click)="moveImage('right')"
-        [ngClass]="{
-          inactive: images.length === 1 || currentPicIndex === images.length - 1
-        }"
-        >arrow_right</mat-icon
-      >
-    </div>
-  </div>
-</ng-container>
 <mat-radio-group
   class="custom-images"
-  [(ngModel)]="currentPicIndex"
   [ngStyle]="{
     'justify-content': currentPositionX,
     'align-items': currentPositionY,
     'flex-direction': currentFlow
   }"
-  [ngClass]="{
-    disabled: !isControlsVisible
-  }"
 >
   <ng-container *ngFor="let image of images; let i = index">
-    <mat-radio-button
-      disableRipple="true"
-      [value]="i"
-      [disabled]="!globalEdit"
-      (click)="setPicControls(i, image.width)"
-    >
+    <mat-radio-button disableRipple="true" [value]="i">
       <img
         class="image"
         [src]="getImage(image.src)"

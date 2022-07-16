@@ -16,40 +16,6 @@
   }
 }
 
-.image-controls {
-  display: flex;
-  align-items: flex-start;
-
-  &__icons {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__icon {
-    transition: transform 0.2s;
-    width: 26px;
-    height: 26px;
-    font-size: 26px;
-    color: #60626f;
-    cursor: pointer;
-
-    &-edit {
-      width: 24px;
-      height: 24px;
-      font-size: 24px;
-    }
-
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-}
-
-.pic-controls {
-  display: flex;
-  align-items: center;
-}
-
 .disabled {
   pointer-events: none;
 }

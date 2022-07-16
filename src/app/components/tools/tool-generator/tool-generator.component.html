@@ -1,19 +1,10 @@
 <div [ngSwitch]="tool.type" class="block" appFullscreen>
-  <mat-icon
-    *ngIf="isGlobalEditOn$ | async"
-    color="accent"
-    class="tool-icon"
-    (click)="openDeleteDialog()"
-    >delete</mat-icon
-  >
   <app-text
-    [globalEdit]="isGlobalEditOn$ | async"
     *ngSwitchCase="names.TEXT"
     [initialValue]="tool.src"
     (quillTextChange)="handleTextChange($event)"
   ></app-text>
   <app-image
-    [globalEdit]="isGlobalEditOn$ | async"
     *ngSwitchCase="names.PICTURE"
     [styling]="tool.styling"
     [imageData]="tool.src"

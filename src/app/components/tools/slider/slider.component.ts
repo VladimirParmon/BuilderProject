@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { FullscreenService } from 'src/app/services/fullscreen.service';
 import { imageDescription } from 'src/constants/models';
