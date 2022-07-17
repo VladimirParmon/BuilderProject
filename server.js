@@ -134,25 +134,25 @@ async function generateSite(req, res) {
       } else {
         fs.copyFileSync(src, dest);
       }
-      insertData();
-      function insertData() {
-        const pathToData = "resources/app" + "\\treeData.json";
-        const treeData = fs
-          .readFileSync(pathToData)
-          .toString()
-          .replace(/(\\r\\n|\\n|\\r)/g, "\\\\n")
-          .replace(/\'/g, "\\'")
-          .replace(/\\"/g, '\\\\"');
-        const siteFiles = fs.readdirSync(commonDest);
-        const mainFileName = siteFiles.filter((filename) =>
-          filename.includes("main")
-        )[0];
-        const pathToMainFile = path.join(commonDest, mainFileName);
-        const mainFile = fs.readFileSync(pathToMainFile).toString();
-        const magicString = '[{"CUSTOM_STRING":"TO_REPLACE"}]';
-        const newMainFileContent = mainFile.replace(magicString, treeData);
-        fs.writeFileSync(pathToMainFile, newMainFileContent);
-      }
+    }
+    insertData();
+    function insertData() {
+      const pathToData = path.join("resources/app", "treeData.json");
+      const treeData = fs
+        .readFileSync(pathToData)
+        .toString()
+        .replace(/(\\r\\n|\\n|\\r)/g, "\\\\n")
+        .replace(/\'/g, "\\'")
+        .replace(/\\"/g, '\\\\"');
+      const siteFiles = fs.readdirSync(commonDest);
+      const mainFileName = siteFiles.filter((filename) =>
+        filename.includes("main")
+      )[0];
+      const pathToMainFile = path.join(commonDest, mainFileName);
+      const mainFile = fs.readFileSync(pathToMainFile).toString();
+      const magicString = '[{"CUSTOM_STRING":"TO_REPLACE"}]';
+      const newMainFileContent = mainFile.replace(magicString, treeData);
+      fs.writeFileSync(pathToMainFile, newMainFileContent);
     }
   }
   res.end(JSON.stringify("Generated!"));
