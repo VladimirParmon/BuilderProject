@@ -135,18 +135,12 @@ async function generateSite(req, res) {
     insertData();
     function insertData() {
       const pathToData = __dirname + "\\treeData.json";
-      // const treeData = JSON.stringify(
-      //   fs
-      //     .readFileSync(pathToData)
-      //     .toString()
-      //     .replace(/(\r\n|\n|\r)/g, "")
-      //   // .replace(/'/g, "'")
-      //   // .replace(/\\/g, "")
-      // );
       const treeData = fs
         .readFileSync(pathToData)
         .toString()
-        .replace(/(\r\n|\n|\r)/g, "");
+        .replace(/(\\r\\n|\\n|\\r)/g, "\\\\n")
+        .replace(/\'/g, "\\'")
+        .replace(/\\"/g, '\\\\"');
       const siteFiles = fs.readdirSync(commonDest);
       const mainFileName = siteFiles.filter((filename) =>
         filename.includes("main")
