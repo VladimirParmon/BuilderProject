@@ -141,7 +141,9 @@ async function generateSite(req, res) {
       const treeData = fs
         .readFileSync(pathToData)
         .toString()
-        .replace(/(\\r\\n|\\n|\\r)/g, "\\\\n")
+        .replace(/(\\r\\n)/g, "\\\\r\\\\n")
+        .replace(/(\\n)/g, "\\\\n")
+        .replace(/(\\r)/g, "\\\\r")
         .replace(/\'/g, "\\'")
         .replace(/\\"/g, '\\\\"');
       const siteFiles = fs.readdirSync(commonDest);
