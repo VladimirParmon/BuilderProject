@@ -64,7 +64,7 @@ async function writeData(req, res) {
   if (raw) {
     const data = JSON.parse(raw).body;
     const writeStream = fs.createWriteStream(path);
-    writeStream.write(JSON.stringify(data, null, 2));
+    writeStream.write(JSON.stringify(data));
   }
   res.end(JSON.stringify("Wrote to treeData.json"));
 }
@@ -111,7 +111,6 @@ async function generateSite(req, res) {
     const siteName = JSON.parse(raw).body;
     const dummySrcDir = "resources/app/dist/dummy";
     const filesSrcDir = "resources/app/dist/builder/assets/tempFiles/";
-    //treeDataSrc =
     const commonDest =
       path.join(__dirname, "../../") + "\\YOUR_SITES" + `\\${siteName}`;
     const dummyDestDir = commonDest;
@@ -119,7 +118,6 @@ async function generateSite(req, res) {
 
     copyFolder(dummySrcDir, dummyDestDir);
     copyFolder(filesSrcDir, filesDestDir);
-    //copyFile();
 
     function copyFolder(src, dest) {
       const exists = fs.existsSync(src);
@@ -135,6 +133,25 @@ async function generateSite(req, res) {
         });
       } else {
         fs.copyFileSync(src, dest);
+      }
+      insertData();
+      function insertData() {
+        const pathToData = "resources/app" + "\\treeData.json";
+        const treeData = fs
+          .readFileSync(pathToData)
+          .toString()
+          .replace(/(\\r\\n|\\n|\\r)/g, "\\\\n")
+          .replace(/\'/g, "\\'")
+          .replace(/\\"/g, '\\\\"');
+        const siteFiles = fs.readdirSync(commonDest);
+        const mainFileName = siteFiles.filter((filename) =>
+          filename.includes("main")
+        )[0];
+        const pathToMainFile = path.join(commonDest, mainFileName);
+        const mainFile = fs.readFileSync(pathToMainFile).toString();
+        const magicString = '[{"CUSTOM_STRING":"TO_REPLACE"}]';
+        const newMainFileContent = mainFile.replace(magicString, treeData);
+        fs.writeFileSync(pathToMainFile, newMainFileContent);
       }
     }
   }
