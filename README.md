@@ -1,27 +1,27 @@
-# Builder
+<h1>Добро пожаловать в генератор электронно-методических комплексов!</h1>
+Цель данного приложения - создавать готовые к распространению интерактивные HTML страницы, не написав ни строчки кода. Верстка адаптивная и рассчитана на любые устройства.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.5.
+```git checkout main => npm run build``` чтобы сгенерировать приложение<br>
+```git checkout dummy => npm run build``` чтобы сгенерировать шаблон распространяемого сайта (обязательно для работы приложения!)<br>
+```npm run electron``` чтоб сгенерировать готовое десктоп-приложение<br>
 
-## Development server
+<h2>По нажатию на один из инструментов слева можно создать блок с контентом.</h2>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Функционал блоков с контентом включает в себя:
 
-## Code scaffolding
+текстовый редактор
+- добавление картинок с возможностью редактирования их размера и расположения
+- вставку видео
+- вставку аудио
+- вставку PDF файлов с просмотром в отдельном окне
+- слайдер изображений с поддержкой полноэкранного режима
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```Пока не реализованный, но возможный к добавлению функционал: таблицы, смена темы, интерактивные тесты```<br>
+```Необходимо добавить: возможность менять блоки местами```
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Меню в правой части экрана – это страницы. По нажатию на одно из названий откроется соответствующая страница. Список можно упорядочивать в произвольном порядке перетаскиванием. 
+**FAQ:**
+- перетаскивание активируется кнопкой "дропзоны". Чтобы перетащить страницу в нужно место, достаточно протянуть ее мышкой в нужное место.<br>
+- по нажатию на кнопку "сохранить" внесенные на страницу изменения сохранятся в памяти, и останутся там, даже если приложение закрыть.<br>
+- по нажатию на кнопку "генерировать" готовая версия сайта будет создана в папке **YOUR_SITES**, расположенной в корневой папке приложения.<br>
+- можно включить/выключить редактирование для того, чтоб посмотреть конечный результать
