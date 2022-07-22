@@ -1,4 +1,7 @@
 ![builder](https://user-images.githubusercontent.com/86885133/179560732-6bf53fb5-9f10-49fc-a94b-ab7d63307670.JPG)
+
+<h2>ENG: This is a desctop app (Angular + Electron) which purpose is to gerate html pages using a template. User can compose a page that contains media and text and then generate ready-to-be-distributed website. This is my pet-project for my university!<h2>
+
 <h1>Добро пожаловать в генератор электронно-методических комплексов!</h1>
 Цель данного приложения - создавать готовые к распространению интерактивные HTML страницы, не написав ни строчки кода. Верстка адаптивная и рассчитана на любые устройства.
 
